@@ -50,6 +50,7 @@ Install with your favorite plugin manager. This plugin is a [`codecompanion.nvim
       -- 📦 Optional dependencies for certain spinner styles:
       -- "j-hui/fidget.nvim",
       -- "folke/snacks.nvim",
+      -- "folke/noice.nvim",
       -- "nvim-lualine/lualine.nvim",
       -- "rebelot/heirline.nvim",
   },
@@ -79,7 +80,7 @@ Here is the complete default configuration. You only need to specify the values 
 ```lua
 {
 	-- The spinner style to use.
-	-- Available options: "cursor-relative", "snacks", "fidget", "lualine", "heirline", "native", "none"
+	-- Available options: "cursor-relative", "snacks", "fidget", "noice", "lualine", "heirline", "native", "none"
 	style = "cursor-relative",
 
 	-- Default icon to show when spinners are idle (default: "")
@@ -167,6 +168,7 @@ You can choose one of the following styles by setting the `style` option:
 - 🖱️ **`cursor-relative`** (Default) - Floating window spinner near cursor
 - 📊 **`fidget`** - Progress notifications via fidget.nvim
 - 🍿 **`snacks`** - Rich notifications via snacks.nvim or vim.notify
+- 📣 **`noice`** - Rich notifications via noice.nvim
 - 📏 **`lualine`** - Statusline component for lualine.nvim
 - 🎨 **`heirline`** - Statusline component for heirline.nvim
 - 🪟 **`native`** - Highly configurable floating window

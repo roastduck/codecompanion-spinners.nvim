@@ -60,6 +60,7 @@ This is a **production-ready** Neovim plugin extension for `codecompanion.nvim` 
    - `snacks.lua`: Rich notifications via snacks.nvim or vim.notify
    - `lualine.lua`: Statusline component for lualine.nvim
    - `heirline.lua`: Statusline component for heirline.nvim
+   - `noice.lua`: Rich notifications via noice.nvim
 
 ### Event Handling
 
@@ -115,12 +116,14 @@ The plugin listens to the following CodeCompanion events:
 - **Configuration:** None
 - **Visual Format:** `<icon> <message>` (e.g., "⚛ Thinking...")
 
+### 4. noice
+- **Type:** Rich notifications
+- **Features:** Animated notifications with icons, detailed feedback
+- **Dependencies:** `folke/noice.nvim`
+- **Configuration:** None
+- **Visual Format:** `<icon> <message>` (e.g., "⚛ Thinking...")
+
 ### 4. lualine
-- **Type:** Statusline component
-- **Features:** Integrated status display that only shows when CodeCompanion chat panel is open, automatic updates
-- **Dependencies:** `nvim-lualine/lualine.nvim`
-- **Configuration:** Uses global `default_icon` for active states, shows nothing when chat is closed
-- **Usage:** Use `get_lualine_component()` for easy integration
 
 **API Functions:**
 - `get_status()`: Returns the current status text string
@@ -279,7 +282,7 @@ content = {
 
 ### Dependencies
 - `olimorris/codecompanion.nvim` (main plugin)
-- Optional: `j-hui/fidget.nvim`, `folke/snacks.nvim`, `nvim-lualine/lualine.nvim`
+- Optional: `j-hui/fidget.nvim`, `folke/snacks.nvim`, `nvim-lualine/lualine.nvim`, `folke/noice.nvim`
 
 ### Configuration Example
 ```lua

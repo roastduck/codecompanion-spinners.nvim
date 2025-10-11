@@ -47,6 +47,13 @@ describe("Spinner Styles Integration", function()
       assert.is_function(spinner.setup)
       assert.is_function(spinner.get_heirline_component)
     end)
+
+    it("should load noice style without errors", function()
+      local spinner = require("codecompanion._extensions.spinner.styles.noice")
+      assert.is_table(spinner)
+      assert.is_function(spinner.setup)
+      assert.is_function(spinner.render)
+    end)
   end)
 
   describe("Spinner Style Setup", function()
@@ -78,6 +85,13 @@ describe("Spinner Styles Integration", function()
       end)
     end)
 
+    it("should setup noice without errors", function()
+      local spinner = require("codecompanion._extensions.spinner.styles.noice")
+      assert.has_no.errors(function()
+        spinner.setup()
+      end)
+    end)
+
     it("should handle setup with missing dependencies", function()
       -- Mock missing dependency
       local original_lualine = package.loaded.lualine
@@ -91,6 +105,20 @@ describe("Spinner Styles Integration", function()
       -- Restore
       package.loaded.lualine = original_lualine
     end)
+
+    it("should handle setup with missing noice dependency", function()
+      -- Mock missing dependency
+      local original_noice = package.loaded.noice
+      package.loaded.noice = nil
+
+      local noice = require("codecompanion._extensions.spinner.styles.noice")
+      assert.has_no.errors(function()
+        noice.setup()
+      end)
+
+      -- Restore
+      package.loaded.noice = original_noice
+    end)
   end)
 
   describe("Spinner Style Interface", function()
@@ -100,6 +128,7 @@ describe("Spinner Styles Integration", function()
         "snacks",
         "fidget",
         "native",
+        "noice",
       }
 
       for _, style in ipairs(styles) do

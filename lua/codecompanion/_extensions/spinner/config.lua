@@ -59,6 +59,9 @@ M.defaults = {
   snacks = {
     -- No specific options for now
   },
+  noice = {
+    -- No specific options for now
+  },
 
   native = {
     -- Configuration for the native window spinner
@@ -167,6 +170,7 @@ function M.validate(cfg)
     "heirline",
     "native",
     "none",
+    "noice",
   }
   if cfg.style == nil then
     return false

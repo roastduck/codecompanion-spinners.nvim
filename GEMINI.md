@@ -41,6 +41,7 @@ This is a Neovim plugin extension for `codecompanion.nvim` that provides beautif
    - `snacks.lua`: Rich notifications via snacks.nvim or vim.notify
    - `lualine.lua`: Statusline component for lualine.nvim
    - `heirline.lua`: Statusline component for heirline.nvim
+   - `noice.lua`: Rich notifications via noice.nvim
 
 ### Event Handling
 
@@ -93,6 +94,11 @@ The plugin listens to the following CodeCompanion events:
 - **Type:** Rich notifications
 - **Features:** Animated notifications with icons, detailed feedback
 - **Dependencies:** `folke/snacks.nvim` (optional, falls back to vim.notify)
+- **Configuration:** None
+### 4. noice
+- **Type:** Rich notifications
+- **Features:** Animated notifications with icons, detailed feedback
+- **Dependencies:** `folke/noice.nvim`
 - **Configuration:** None
 - **Visual Format:** `<icon> <message>` (e.g., "⚛ Thinking...")
 
@@ -260,7 +266,7 @@ content = {
 
 ### Dependencies
 - `olimorris/codecompanion.nvim` (main plugin)
-- Optional: `j-hui/fidget.nvim`, `folke/snacks.nvim`, `nvim-lualine/lualine.nvim`
+- Optional: `j-hui/fidget.nvim`, `folke/snacks.nvim`, `nvim-lualine/lualine.nvim`, `folke/noice.nvim`
 
 ### Configuration Example
 ```lua
