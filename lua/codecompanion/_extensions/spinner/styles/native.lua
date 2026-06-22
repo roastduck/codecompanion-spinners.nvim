@@ -29,12 +29,13 @@ local animations = {
 local function get_title_text(content, is_spinning)
   local current_config = require("codecompanion._extensions.spinner.config")
   local default_icon = current_config.get().default_icon
+  local title = current_config.get().native.window.title
 
   if is_spinning then
     local frame_char = animations.default[ui.frame]
-    return string.format(" %s CodeCompanion ", frame_char)
+    return string.format(" %s %s ", frame_char, title)
   else
-    return string.format(" %s%sCodeCompanion ", default_icon, content.spacing)
+    return string.format(" %s%s%s ", default_icon, content.spacing, title)
   end
 end
 
