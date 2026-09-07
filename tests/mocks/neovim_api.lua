@@ -13,6 +13,8 @@ M._win_close_calls = 0 -- number of nvim_win_close invocations
 M._closed_wins = {} -- set of window ids that have been closed
 M._last_win_config = nil -- last config passed to nvim_win_set_config
 M._deferred = {} -- callbacks captured by the deferred-mock (see _G.vim.defer_fn shim)
+M._next_win_id = 999 -- next window id handed out by nvim_open_win
+M._last_win_id = nil -- id returned by the most recent nvim_open_win
 
 -- Mock vim.api
 M.api = {
@@ -89,7 +91,13 @@ M.api = {
 
   nvim_open_win = function(_bufnr, _enter, _opts)
     M._open_win_calls = M._open_win_calls + 1
-    return 999 -- Mock window ID
+    -- Hand out a unique id per open, like real nvim: a newly opened window
+    -- is never a previously closed id (fixes "new window seen as closed"
+    -- when ids were a constant 999).
+    local winid = M._next_win_id
+    M._next_win_id = M._next_win_id + 1
+    M._last_win_id = winid
+    return winid
   end,
 
   nvim_win_close = function(winid, _force)
@@ -126,7 +134,9 @@ M.api = {
   end,
 
   nvim_win_is_valid = function(win)
-    return not M._closed_wins[win] -- Mock window is valid unless closed
+    -- Valid unless closed; safe because ids are unique per open, so a
+    -- freshly opened window can never collide with a closed one.
+    return not M._closed_wins[win]
   end,
 
   nvim_buf_is_valid = function(_buf)
@@ -287,6 +297,8 @@ M.reset = function()
   M._closed_wins = {}
   M._last_win_config = nil
   M._deferred = {}
+  M._next_win_id = 999
+  M._last_win_id = nil
 end
 
 return M

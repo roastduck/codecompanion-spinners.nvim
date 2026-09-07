@@ -77,17 +77,31 @@ describe("Native Spinner Window Lifecycle", function()
 
       native.render(tracker.State.THINKING, "CodeCompanionRequestStarted")
       assert.equals(1, neovim_mock._open_win_calls)
+      local first_win = neovim_mock._last_win_id
 
       native.render(tracker.State.IDLE, "CodeCompanionRequestFinished")
 
       -- done_timer elapses: the deferred close runs and closes the window
       run_deferred()
-      assert.is_true(neovim_mock._closed_wins[999], "the spinner window should be closed after done_timer expires")
+      assert.is_true(
+        neovim_mock._closed_wins[first_win],
+        "the spinner window should be closed after done_timer expires"
+      )
+      assert.is_false(
+        neovim_mock.api.nvim_win_is_valid(first_win),
+        "closed window must be reported invalid by the mock"
+      )
 
       -- New activity afterwards opens a fresh window
       neovim_mock._open_win_calls = 0
       native.render(tracker.State.THINKING, "CodeCompanionRequestStarted")
       assert.equals(1, neovim_mock._open_win_calls)
+      local second_win = neovim_mock._last_win_id
+      assert.is_not.equals(first_win, second_win, "a fresh window must get a new id")
+      assert.is_true(
+        neovim_mock.api.nvim_win_is_valid(second_win),
+        "newly opened window must be valid (mock models real nvim semantics)"
+      )
     end)
   end)
 
